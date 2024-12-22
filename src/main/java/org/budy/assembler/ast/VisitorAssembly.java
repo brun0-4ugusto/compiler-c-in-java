@@ -1,4 +1,4 @@
-package org.budy.assembler.nodes.ast;
+package org.budy.assembler.ast;
 
 import org.budy.assembler.nodes.AssemblyFunction;
 import org.budy.assembler.nodes.AssemblyProgram;

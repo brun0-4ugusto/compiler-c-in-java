@@ -1,6 +1,6 @@
 package org.budy.parser.nodes.expressions;
 
-import org.budy.assembler.nodes.ast.VisitorAssembly;
+import org.budy.assembler.ast.VisitorAssembly;
 import org.budy.assembler.nodes.instruction.Operand.Imm;
 import org.budy.parser.nodes.ast.Visitor;
 

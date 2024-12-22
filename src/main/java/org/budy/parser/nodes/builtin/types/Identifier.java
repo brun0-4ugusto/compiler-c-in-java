@@ -1,6 +1,6 @@
 package org.budy.parser.nodes.builtin.types;
 
-import org.budy.assembler.nodes.ast.VisitorAssembly;
+import org.budy.assembler.ast.VisitorAssembly;
 import org.budy.assembler.nodes.IdentifierAssembly;
 import org.budy.parser.nodes.ast.AstNode;
 import org.budy.parser.nodes.ast.Visitor;

@@ -1,6 +1,6 @@
 package org.budy.parser.nodes.statements;
 
-import org.budy.assembler.nodes.ast.VisitorAssembly;
+import org.budy.assembler.ast.VisitorAssembly;
 import org.budy.assembler.nodes.instruction.InstructionsSet;
 import org.budy.parser.nodes.ast.AstNode;
 

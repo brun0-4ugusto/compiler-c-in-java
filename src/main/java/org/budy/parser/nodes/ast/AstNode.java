@@ -1,6 +1,6 @@
 package org.budy.parser.nodes.ast;
 
-import org.budy.assembler.nodes.ast.VisitorAssembly;
+import org.budy.assembler.ast.VisitorAssembly;
 import org.budy.assembler.nodes.Assembly;
 
 public abstract class AstNode {
