@@ -26,6 +26,14 @@ public class Scanner {
                 case '{' -> addToken(generateToken(TokenType.OPEN_BRACE));
                 case '}' -> addToken(generateToken(TokenType.CLOSE_BRACE));
                 case ';' -> addToken(generateToken(TokenType.SEMICOLON));
+                case '~' -> addToken(generateToken(TokenType.BITWISE_COMPLEMENT));
+                case '-' -> {
+                    if (isAdvancedCharEquals('-')) {
+                        addToken(generateToken(TokenType.DECREMENT));
+                        continue;
+                    }
+                    addToken(generateToken(TokenType.NEGATION));
+                }
                 default -> {
                     if (isWhitespace()) {
                         continue;
@@ -51,6 +59,16 @@ public class Scanner {
         return tokens;
     }
 
+    private boolean isAdvancedCharEquals(char c) {
+        if (isAtEnd()) return false;
+
+        if (c == source[advancedChar]) {
+            consumeChar();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     private boolean isKeyword() {

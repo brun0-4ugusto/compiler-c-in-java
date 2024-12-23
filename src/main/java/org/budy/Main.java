@@ -23,28 +23,68 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            if (args.length < 2) {
+                throw new RuntimeException("É necessário a operação e o path do código");
+            }
+
             Path path = Path.of(args[1]);
             char[] rawSource = ReaderCFile.read(path);
-            List<Token> tokens = scanner.scan(rawSource);
 
-            readTokens(tokens, rawSource);
+            switch (args[0]) {
+                case "--lex" -> {
+                    lex(rawSource);
+                }
+                case "--parse" -> {
+                    List<Token> tokens = lex(rawSource);
+                    parse(tokens, rawSource);
+                }
+                case "--codegen" -> {
+                    List<Token> tokens = lex(rawSource);
+                    Program abstractSyntaxTree = parse(tokens, rawSource);
+                    assemblyGenAst(abstractSyntaxTree);
+                }
 
-            System.out.println("\n/////////////////////////");
-            System.out.println("Parser");
-            System.out.println("/////////////////////////");
-            Program abstractSyntaxTree = parser.parse(tokens, rawSource);
-            readAST(abstractSyntaxTree);
-            System.out.println("\n/////////////////////////");
-            System.out.println("Assembly Gen");
-            System.out.println("/////////////////////////");
-            AssemblyProgram assemblyProgram = assembler.assemble(abstractSyntaxTree);
-            readAssembly(assemblyProgram);
-            System.out.println("/////////////////////////");
-            emissionCode.createAssemblyFile(assemblyProgram, path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                case "--complete" -> {
+                    List<Token> tokens = lex(rawSource);
+                    Program abstractSyntaxTree = parse(tokens, rawSource);
+                    AssemblyProgram assemblyProgram = assemblyGenAst(abstractSyntaxTree);
+                    emissionCode.createAssemblyFile(assemblyProgram, path);
+                }
+
+                default -> {
+                    throw new RuntimeException("Operação nao suportada: " + args[0]);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
 
+    }
+
+    private static AssemblyProgram assemblyGenAst(Program abstractSyntaxTree) {
+        System.out.println("\n/////////////////////////");
+        System.out.println("Assembly Gen");
+        System.out.println("/////////////////////////");
+        AssemblyProgram assemblyProgram = assembler.assemble(abstractSyntaxTree);
+        readAssembly(assemblyProgram);
+        System.out.println("/////////////////////////");
+        return assemblyProgram;
+    }
+
+    private static Program parse(List<Token> tokens, char[] rawSource) {
+        System.out.println("\n/////////////////////////");
+        System.out.println("Parser");
+        System.out.println("/////////////////////////");
+        Program abstractSyntaxTree = parser.parse(tokens, rawSource);
+        readAST(abstractSyntaxTree);
+        return abstractSyntaxTree;
+    }
+
+    private static List<Token> lex(char[] rawSource) {
+        List<Token> tokens = scanner.scan(rawSource);
+        readTokens(tokens, rawSource);
+        return tokens;
     }
 
     private static void readAssembly(AssemblyProgram assemblyProgram) {

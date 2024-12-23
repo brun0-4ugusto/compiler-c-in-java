@@ -8,5 +8,9 @@ public enum TokenType {
     OPEN_BRACE,
     CLOSE_BRACE,
     SEMICOLON,
-    KEYWORD
+    KEYWORD,
+
+    BITWISE_COMPLEMENT, //~ complemento a dois: invertendo todos os bits e add 1
+    NEGATION,
+    DECREMENT
 }
