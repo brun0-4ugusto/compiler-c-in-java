@@ -1,11 +1,13 @@
 package org.budy.parser.printer;
 
+import org.budy.lex.token.TokenType;
 import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.ast.Visitor;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
 import org.budy.parser.nodes.expressions.Expr;
+import org.budy.parser.nodes.expressions.Unary;
 import org.budy.parser.nodes.statements.Return;
 import org.budy.parser.nodes.statements.Stmt;
 
@@ -42,5 +44,12 @@ public class AstNodePrinter implements Visitor<String> {
     @Override
     public String visit(Identifier identifier) {
         return identifier.name();
+    }
+
+    @Override
+    public String visit(Unary unary) {
+        String operator = unary.getOperator();
+        String expr = unary.getRight().accept(this);
+        return "Unary(" + "operator=" + operator + " " + "Expr=(" + expr + ")";
     }
 }

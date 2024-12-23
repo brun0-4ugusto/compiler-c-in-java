@@ -7,9 +7,11 @@ import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
 import org.budy.parser.nodes.expressions.Expr;
+import org.budy.parser.nodes.expressions.Unary;
 import org.budy.parser.nodes.statements.Return;
 import org.budy.parser.nodes.statements.Stmt;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -78,10 +80,28 @@ public final class Parser {
     }
 
     private Expr expression() {
-        return switch (tokens.get(currentToken).tokenType()) {
-            case TokenType.CONSTANT -> Cint();
-            default -> throw new IllegalStateException("Unexpected value: " + tokens.get(currentToken).tokenType());
-        };
+        if (matchCurrentToken(TokenType.CONSTANT)) {
+            return Cint();
+        }
+        if (matchCurrentToken(TokenType.BITWISE_COMPLEMENT, TokenType.NEGATION)) {
+            return unary();
+        }
+
+        consumeExpected("(");
+        Expr expr = expression();
+        consumeExpected(")");
+        if (expr != null) {
+            return expr;
+        }
+
+        throw new IllegalStateException("Unexpected value: " + peekCurrentToken().tokenType());
+    }
+
+    private Unary unary() {
+        String token = peekCurrentToken().readLexemeFromToken(rawSource);
+        advanceCurrentToken();
+        Expr right = expression();
+        return new Unary(token, right);
     }
 
     private Constant Cint() {
@@ -99,13 +119,16 @@ public final class Parser {
         return identifier;
     }
 
-    private boolean matchCurrentToken(TokenType tokenType) {
-        return match(tokenType, currentToken);
+    private boolean matchCurrentToken(TokenType... tokenType) {
+        return Arrays.stream(tokenType).anyMatch(type ->
+                peekCurrentToken().tokenType().equals(type)
+        );
     }
 
-    private boolean match(TokenType tokenType, int currentToken) {
-        return tokens.get(currentToken).tokenType().equals(tokenType);
+    private Token peekCurrentToken() {
+        return tokens.get(currentToken);
     }
+
 
     private void consumeExpected(String expected) {
         String lexeme = readLexemeCurrentToken();
