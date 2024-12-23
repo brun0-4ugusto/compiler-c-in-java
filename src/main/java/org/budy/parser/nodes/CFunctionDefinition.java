@@ -7,11 +7,11 @@ import org.budy.parser.nodes.ast.Visitor;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.statements.Stmt;
 
-public final class CFunction extends AstNode {
+public final class CFunctionDefinition extends AstNode {
     private final Identifier name;
     private final Stmt body;
 
-    public CFunction(Identifier name, Stmt body) {
+    public CFunctionDefinition(Identifier name, Stmt body) {
         this.name = name;
         this.body = body;
     }

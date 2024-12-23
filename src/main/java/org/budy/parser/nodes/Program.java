@@ -6,13 +6,13 @@ import org.budy.parser.nodes.ast.AstNode;
 import org.budy.parser.nodes.ast.Visitor;
 
 public final class Program extends AstNode {
-    private final CFunction function;
+    private final CFunctionDefinition function;
 
-    public Program(CFunction function) {
+    public Program(CFunctionDefinition function) {
         this.function = function;
     }
 
-    public CFunction function() {
+    public CFunctionDefinition function() {
         return function;
     }
 

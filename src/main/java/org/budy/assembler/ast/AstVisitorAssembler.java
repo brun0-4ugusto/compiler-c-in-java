@@ -10,7 +10,7 @@ import org.budy.assembler.nodes.instruction.Mov;
 import org.budy.assembler.nodes.instruction.Operand.Imm;
 import org.budy.assembler.nodes.instruction.Operand.Register;
 import org.budy.assembler.nodes.instruction.Ret;
-import org.budy.parser.nodes.CFunction;
+import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
@@ -44,9 +44,9 @@ public class AstVisitorAssembler implements VisitorAssembly {
     }
 
     @Override
-    public AssemblyFunction visit(CFunction cFunction) {
-        IdentifierAssembly name = cFunction.name().accept(this);
-        InstructionsSet instructions = cFunction.body().accept(this);
+    public AssemblyFunction visit(CFunctionDefinition cFunctionDefinition) {
+        IdentifierAssembly name = cFunctionDefinition.name().accept(this);
+        InstructionsSet instructions = cFunctionDefinition.body().accept(this);
         return new AssemblyFunction(name, instructions);
     }
 

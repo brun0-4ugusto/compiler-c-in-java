@@ -1,6 +1,6 @@
 package org.budy.parser.nodes.ast;
 
-import org.budy.parser.nodes.CFunction;
+import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
@@ -13,7 +13,7 @@ public interface Visitor<R> {
 
     R visit(Return aReturn);
 
-    R visit(CFunction cFunction);
+    R visit(CFunctionDefinition cFunctionDefinition);
 
     R visit(Identifier identifier);
 }

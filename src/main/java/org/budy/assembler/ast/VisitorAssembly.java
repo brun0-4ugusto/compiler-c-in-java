@@ -5,7 +5,7 @@ import org.budy.assembler.nodes.AssemblyProgram;
 import org.budy.assembler.nodes.IdentifierAssembly;
 import org.budy.assembler.nodes.instruction.InstructionsSet;
 import org.budy.assembler.nodes.instruction.Operand.Imm;
-import org.budy.parser.nodes.CFunction;
+import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
@@ -18,7 +18,7 @@ public interface VisitorAssembly {
 
     InstructionsSet visit(Return aReturn);
 
-    AssemblyFunction visit(CFunction cFunction);
+    AssemblyFunction visit(CFunctionDefinition cFunctionDefinition);
 
     IdentifierAssembly visit(Identifier identifier);
 }

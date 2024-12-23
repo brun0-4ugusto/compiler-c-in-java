@@ -2,7 +2,7 @@ package org.budy.parser;
 
 import org.budy.lex.token.Token;
 import org.budy.lex.token.TokenType;
-import org.budy.parser.nodes.CFunction;
+import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.expressions.Constant;
@@ -54,11 +54,11 @@ public final class Parser {
     }
 
     private Program program() {
-        CFunction function = generateFunction();
+        CFunctionDefinition function = generateFunction();
         return new Program(function);
     }
 
-    private CFunction generateFunction() {
+    private CFunctionDefinition generateFunction() {
         consumeExpected("int");
         Identifier identifier = identifier();
         consumeExpected("(");
@@ -67,7 +67,7 @@ public final class Parser {
         consumeExpected("{");
         Stmt body = statement();
         consumeExpected("}");
-        return new CFunction(identifier, body);
+        return new CFunctionDefinition(identifier, body);
     }
 
     private Stmt statement() {

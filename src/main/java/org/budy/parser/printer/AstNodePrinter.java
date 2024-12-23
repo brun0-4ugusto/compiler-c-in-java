@@ -1,6 +1,6 @@
 package org.budy.parser.printer;
 
-import org.budy.parser.nodes.CFunction;
+import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.ast.Visitor;
 import org.budy.parser.nodes.builtin.types.Identifier;
@@ -20,7 +20,7 @@ public class AstNodePrinter implements Visitor<String> {
 
     @Override
     public String visit(Program program) {
-        CFunction function = program.function();
+        CFunctionDefinition function = program.function();
         return String.format("Program(\n\t%s\n)", function.accept(this));
     }
 
@@ -31,9 +31,9 @@ public class AstNodePrinter implements Visitor<String> {
     }
 
     @Override
-    public String visit(CFunction cFunction) {
-        Identifier name = cFunction.name();
-        Stmt body = cFunction.body();
+    public String visit(CFunctionDefinition cFunctionDefinition) {
+        Identifier name = cFunctionDefinition.name();
+        Stmt body = cFunctionDefinition.body();
 
 
         return String.format("Function(\n\t\tname=%s,\n\t\tbody=%s\n\t\t)", name.accept(this), body.accept(this));
