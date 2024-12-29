@@ -1,6 +1,5 @@
-package org.budy.parser.printer;
+package org.budy.parser.nodes.visitor.printer;
 
-import org.budy.lex.token.TokenType;
 import org.budy.parser.nodes.CFunctionDefinition;
 import org.budy.parser.nodes.Program;
 import org.budy.parser.nodes.ast.Visitor;

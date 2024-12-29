@@ -6,6 +6,8 @@ import org.budy.parser.nodes.ast.AstNode;
 import org.budy.parser.nodes.ast.Visitor;
 import org.budy.parser.nodes.builtin.types.Identifier;
 import org.budy.parser.nodes.statements.Stmt;
+import org.budy.parser.nodes.visitor.ir.VisitorTac;
+import org.budy.tac.nodes.FunctionDefinitionTac;
 
 public final class CFunctionDefinition extends AstNode {
     private final Identifier name;
@@ -33,5 +35,10 @@ public final class CFunctionDefinition extends AstNode {
     @Override
     public AssemblyFunction accept(VisitorAssembly visitor) {
         return visitor.visit(this);
+    }
+
+    @Override
+    public FunctionDefinitionTac accept(VisitorTac visitorTac) {
+        return visitorTac.visit(this);
     }
 }

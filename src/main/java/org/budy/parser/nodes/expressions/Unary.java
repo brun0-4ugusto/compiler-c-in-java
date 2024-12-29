@@ -2,8 +2,9 @@ package org.budy.parser.nodes.expressions;
 
 import org.budy.assembler.ast.VisitorAssembly;
 import org.budy.assembler.nodes.Assembly;
-import org.budy.lex.token.Token;
 import org.budy.parser.nodes.ast.Visitor;
+import org.budy.parser.nodes.visitor.ir.VisitorTac;
+import org.budy.tac.nodes.InstructionTac;
 
 public class Unary extends Expr {
     private final String operator;
@@ -31,5 +32,10 @@ public class Unary extends Expr {
     public Assembly accept(VisitorAssembly visitor) {
         //return visitor.visit(this);
         return null;
+    }
+
+    @Override
+    public InstructionTac.UnaryTac accept(VisitorTac visitorTac) {
+        return visitorTac.visit(this);
     }
 }

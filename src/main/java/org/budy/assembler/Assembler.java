@@ -1,7 +1,7 @@
 package org.budy.assembler;
 
-import org.budy.assembler.nodes.AssemblyProgram;
 import org.budy.assembler.ast.AstVisitorAssembler;
+import org.budy.assembler.nodes.AssemblyProgram;
 import org.budy.parser.nodes.Program;
 
 /**
